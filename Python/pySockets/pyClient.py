@@ -2,7 +2,7 @@ import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-s.connect(("192.168.0.20", 2020))
+s.connect(("192.168.0.19", 2020))
 print("Connected to server")
 end = True
 while end:
@@ -11,5 +11,10 @@ while end:
         end = False
     s.send(message.encode())
     msg = s.recv(8)
-    print('Server message: ', msg)
+    if msg != b'':
+        print('Server message: ', msg)
+    else:
+        print('Server disconnected')
+        end = False
+
 s.close()
