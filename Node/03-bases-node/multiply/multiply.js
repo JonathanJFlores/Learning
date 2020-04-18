@@ -1,11 +1,18 @@
 const fs = require('fs');
+var colors = require('colors');
 
-
-let listTable = ( base, limit )=>{
+let listTable = ( base, limit=10 )=>{
+    console.log('================='.green);
+    console.log(`   Table of ${base}`.red);
+    console.log('================='.grey);
     
+
+    for(let i=1; i<=limit; i++){
+        console.log(`${ base } * ${ i } = ${ base * i }`);
+    }
 }
 
-createFile = ( base )=>{
+createFile = ( base, limit =10 )=>{
     return new Promise((resolve, reject)=>{
 
         if( !Number(base) ){
@@ -14,15 +21,15 @@ createFile = ( base )=>{
         }
         let data = '';
         
-        for(let i = 1; i<=10; i++){
-            data += `${base}*${i} = ${base*i}\n`;
+        for(let i = 1; i<=limit; i++){
+            data += `${ base } * ${ i } = ${ base * i }\n`;
         }
         
-        fs.writeFile(`tables/table-${ base }.txt`, data,(err)=>{
+        fs.writeFile(`tables/table-${ base }_to_${ limit }.txt`, data,(err)=>{
             if(err) 
                 reject(err);
             else
-            resolve(`table-${ base }.txt`);
+            resolve(`table-${ base }_to_${ limit }.txt`);
             
         });
 
@@ -31,5 +38,6 @@ createFile = ( base )=>{
 
 
 module.exports = {
-    createFile
+    createFile,
+    listTable
 }

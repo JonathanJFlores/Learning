@@ -1,23 +1,20 @@
-// requireds
-const argv = require('yargs')
-                .command('List', 'Print multiply table',{
-                    base:{
-                        demand: true,
-                        alias : 'b'
-                    },
-                    limit:{
-                        alias: 'l',
-                        default: 10
-                    }
-                })
-                .help()
-                .argv;
+// List command line
+// node app.js list --base 3 --limit 4
+
+// Create command line
+// node app.js create --base 10
+
+// Create table with limit command line
+// node app.js create --base 3 --limit 50
 
 // const fs = require('fs');
 // const fs = require('express');
 // const fs = require('./path')
 
-const { createFile } = require('./multiply/multiply');
+const argv = require('./config/yargs').argv;
+const colors = require('colors');
+
+const { createFile, listTable } = require('./multiply/multiply');
 
 // let base = "9";
 
@@ -26,13 +23,12 @@ let command = argv._[0];
 
 switch (command) {
     case 'list':
-        console.log('List');
-        break;
+        listTable(argv.base, argv.limit);
+    break;
         
     case 'create':
-        
-        createFile(argv.base)
-            .then(file => console.log(`File created: ${ file }`))
+        createFile(argv.base, argv.limit)
+            .then(file => console.log(`File created: ${ colors.grey(file)}`))
             .catch(e => console.log(e));
         console.log('create');
     break;

@@ -9,6 +9,7 @@
   "author": "Jonathan Flores",
   "license": "ISC",
   "dependencies": {
+    "colors": "^1.4.0",
     "image-to-base64": "^2.0.1",
     "yargs": "^15.3.1"
   },
